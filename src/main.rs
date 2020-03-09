@@ -1,17 +1,16 @@
 use std::io;
 use rand::Rng;
-// use std::collections::HashMap;
+use std::collections::HashMap;
 use intmap::IntMap;
 
 fn main() {
     println!("Rock, Paper, Scissors");
+    println!("Please input your object. Or type 'exit' to quit.");
     let mut user_score = 0;
     let mut computer_score = 0;
     let mut ties_counter = 0;
 
     loop {
-        println!("Please input your object. Or type 'exit' to quit.");
-
         let mut user_object = String::new();
         let mut computer_object = String::new();
 
@@ -23,11 +22,17 @@ fn main() {
         println!("You entered: {}", user_object);
 
         if user_object == "rock" {
-            println!("Computer chooses {}", chose_random_game_item());
+            computer_object = chose_random_game_item();
+            println!("Computer chooses {}", computer_object);
+            println!("The winner is: {}", who_wins(user_object, &computer_object))
         } else if user_object == "paper" {
-            println!("Computer chooses {}", chose_random_game_item());
+            computer_object = chose_random_game_item();
+            println!("Computer chooses {}", computer_object);
+            println!("The winner is: {}", who_wins(user_object, &computer_object))
         } else if user_object == "scissors" {
-            println!("Computer chooses {}", chose_random_game_item());
+            computer_object = chose_random_game_item();
+            println!("Computer chooses {}", computer_object);
+            println!("The winner is: {}", who_wins(user_object, &computer_object))
         } else if user_object == "exit" {
             break;
         } else {
@@ -46,6 +51,14 @@ fn chose_random_game_item() -> String {
     objects_map.get(computer_choice_number).unwrap().to_string()
 }
 
-fn whoWins (user_object: String, computer_object: String) -> String {
-    "test".into()
+fn who_wins(user_object: &str, computer_object: &str) -> String {
+    let objects_map: HashMap<&str, usize> = [("rock", 0), ("paper", 1), ("scissors", 2)].iter().cloned().collect();
+    let user_choice = objects_map[&user_object];
+    let computer_choice = objects_map[&computer_object];
+    let x = [
+        ["tie", "computer", "user"],
+        ["user", "tie", "computer"],
+        ["computer", "user", "tie"],
+    ];
+    x[user_choice][computer_choice].to_string()
 }
