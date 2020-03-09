@@ -1,6 +1,7 @@
 use std::io;
 use rand::Rng;
-use std::collections::HashMap;
+// use std::collections::HashMap;
+use intmap::IntMap;
 
 fn main() {
     println!("Rock, Paper, Scissors");
@@ -22,11 +23,11 @@ fn main() {
         println!("You entered: {}", user_object);
 
         if user_object == "rock" {
-            println!("ROCK!");
+            println!("Computer chooses {}", chose_random_game_item());
         } else if user_object == "paper" {
-            println!("PAPER!");
+            println!("Computer chooses {}", chose_random_game_item());
         } else if user_object == "scissors" {
-            println!("SCISSORS!");
+            println!("Computer chooses {}", chose_random_game_item());
         } else if user_object == "exit" {
             break;
         } else {
@@ -35,12 +36,14 @@ fn main() {
     }
 }
 
-fn choseRandomGameItem() -> String {
-    // TODO: need some kind of map where the key can be an int
-    // let objects_map: HashMap<i32, String> = [(0, "rock"), (1, "paper"), (2, "scissors")].iter().cloned().collect();
+fn chose_random_game_item() -> String {
+    let mut objects_map = IntMap::new();
     let computer_choice_number = rand::thread_rng().gen_range(0, 3);
-    // println!("Computer chooses: {}", computer_choice_number);
-    "".into()
+
+    objects_map.insert(0, "rock");
+    objects_map.insert(1, "paper");
+    objects_map.insert(2, "scissors");
+    objects_map.get(computer_choice_number).unwrap().to_string()
 }
 
 fn whoWins (user_object: String, computer_object: String) -> String {
