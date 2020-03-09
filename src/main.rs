@@ -34,8 +34,10 @@ fn main() {
             println!("Computer chooses {}", computer_object);
             println!("The winner is: {}", who_wins(user_object, &computer_object))
         } else if user_object == "exit" {
+            println!("Thanks for playing, bye!");
             break;
         } else {
+            println!("Hmm ... I didn't get that, please enter 'rock', 'paper' or 'scissors'");
             continue;
         }
     }
