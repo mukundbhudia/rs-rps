@@ -6,14 +6,13 @@ use intmap::IntMap;
 fn main() {
     println!("Rock, Paper, Scissors");
     println!("Please input your object. Or type 'exit' to quit.");
-    let mut user_score = &mut 0;
-    let mut computer_score = &mut 0;
-    let mut ties_counter = &mut 0;
+    let user_score = &mut 0;
+    let computer_score = &mut 0;
+    let ties_counter = &mut 0;
     let mut games_counter = 0;
 
     loop {
         let mut user_object = String::new();
-        let mut computer_object = String::new();
 
         io::stdin().read_line(&mut user_object)
             .expect("Failed to read line");
@@ -23,14 +22,14 @@ fn main() {
         println!("You entered: {}", user_object);
 
         if user_object == "rock" || user_object == "paper" || user_object == "scissors" {
-            computer_object = chose_random_game_item();
-            let mut winner = String::new();
+            let computer_object = chose_random_game_item();
             println!("Computer chooses: {}", computer_object);
-            winner = who_wins(user_object, &computer_object);
+            let winner = who_wins(user_object, &computer_object);
             update_scores(&winner, user_score, computer_score, ties_counter);
             games_counter = games_counter + 1;
             println!("The winner is: {}", winner);
             println!("The scores over {} games are > user: {}, computer: {} and {} ties", games_counter, user_score, computer_score, ties_counter);
+            println!();
         } else if user_object == "exit" {
             println!("Thanks for playing, bye!");
             break;
