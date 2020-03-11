@@ -9,6 +9,7 @@ fn main() {
     let mut user_score = &mut 0;
     let mut computer_score = &mut 0;
     let mut ties_counter = &mut 0;
+    let mut games_counter = 0;
 
     loop {
         let mut user_object = String::new();
@@ -27,8 +28,9 @@ fn main() {
             println!("Computer chooses: {}", computer_object);
             winner = who_wins(user_object, &computer_object);
             update_scores(&winner, user_score, computer_score, ties_counter);
+            games_counter = games_counter + 1;
             println!("The winner is: {}", winner);
-            println!("The scores are user: {}, computer: {} and {} ties", user_score, computer_score, ties_counter);
+            println!("The scores over {} games are > user: {}, computer: {} and {} ties", games_counter, user_score, computer_score, ties_counter);
         } else if user_object == "exit" {
             println!("Thanks for playing, bye!");
             break;
