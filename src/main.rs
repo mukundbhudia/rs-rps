@@ -6,9 +6,9 @@ use intmap::IntMap;
 fn main() {
     println!("Rock, Paper, Scissors");
     println!("Please input your object. Or type 'exit' to quit.");
-    let mut user_score = 0;
-    let mut computer_score = 0;
-    let mut ties_counter = 0;
+    let mut user_score = &mut 0;
+    let mut computer_score = &mut 0;
+    let mut ties_counter = &mut 0;
 
     loop {
         let mut user_object = String::new();
@@ -21,18 +21,14 @@ fn main() {
 
         println!("You entered: {}", user_object);
 
-        if user_object == "rock" {
+        if user_object == "rock" || user_object == "paper" || user_object == "scissors" {
             computer_object = chose_random_game_item();
-            println!("Computer chooses {}", computer_object);
-            println!("The winner is: {}", who_wins(user_object, &computer_object))
-        } else if user_object == "paper" {
-            computer_object = chose_random_game_item();
-            println!("Computer chooses {}", computer_object);
-            println!("The winner is: {}", who_wins(user_object, &computer_object))
-        } else if user_object == "scissors" {
-            computer_object = chose_random_game_item();
-            println!("Computer chooses {}", computer_object);
-            println!("The winner is: {}", who_wins(user_object, &computer_object))
+            let mut winner = String::new();
+            println!("Computer chooses: {}", computer_object);
+            winner = who_wins(user_object, &computer_object);
+            update_scores(&winner, user_score, computer_score, ties_counter);
+            println!("The winner is: {}", winner);
+            println!("The scores are user: {}, computer: {} and {} ties", user_score, computer_score, ties_counter);
         } else if user_object == "exit" {
             println!("Thanks for playing, bye!");
             break;
@@ -40,6 +36,16 @@ fn main() {
             println!("Hmm ... I didn't get that, please enter 'rock', 'paper' or 'scissors'");
             continue;
         }
+    }
+}
+
+fn update_scores(result: &String, user_score: &mut i32, computer_score: &mut i32, ties_counter: &mut i32) -> () {
+    if result == "user" {
+        *user_score = *user_score + 1;
+    } else if result == "computer" {
+        *computer_score = *computer_score + 1;
+    } else {
+        *ties_counter = *ties_counter + 1;
     }
 }
 
